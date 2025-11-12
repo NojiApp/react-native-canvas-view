@@ -41,7 +41,25 @@
 }
 
 - (UIImage *)getDrawing {
-  return [_canvasView.drawing imageFromRect:self.bounds scale:1.0];
+  PKDrawing *drawing = _canvasView.drawing;
+
+  CGFloat margin = 24.0;
+  CGFloat scale = [UIScreen mainScreen].scale;
+
+  CGRect drawingBounds = drawing.bounds;
+  CGRect expandedBounds = CGRectInset(drawingBounds, -margin, -margin);
+
+  UIGraphicsBeginImageContextWithOptions(expandedBounds.size, YES, scale);
+  [[UIColor whiteColor] setFill];
+  UIRectFill(CGRectMake(0, 0, expandedBounds.size.width, expandedBounds.size.height));
+
+  UIImage *drawingImage = [drawing imageFromRect:expandedBounds scale:scale];
+  [drawingImage drawInRect:CGRectMake(0, 0, expandedBounds.size.width, expandedBounds.size.height)];
+
+  UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+
+  return finalImage;
 }
 
 - (void)undo {
