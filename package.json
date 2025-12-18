@@ -1,6 +1,6 @@
 {
   "name": "@ankipro/react-native-canvas-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native canvas drawing view for iOS",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
